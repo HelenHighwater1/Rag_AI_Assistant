@@ -6,6 +6,7 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_openai import ChatOpenAI
 from langchain.chains import RetrievalQA
+from langchain.prompts import PromptTemplate
 import gradio as gr
 
 # Set your OpenAI API key here
@@ -35,10 +36,23 @@ vectordb = FAISS.from_documents(
 
 llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
 
+friendly_prompt = PromptTemplate(
+    template="""You are a friendly and helpful HR assistant. Always be warm, welcoming, and approachable in your responses. Use a conversational tone and show empathy when appropriate. Be encouraging and supportive while providing accurate information about HR policies.
+
+Question: {question}
+
+Context: {context}
+
+Answer:""",
+    input_variables=["question", "context"]
+)
+
+
 
 retriever_chain = RetrievalQA.from_chain_type(llm,
                                        retriever=vectordb.as_retriever(),
                                        return_source_documents=True,
+                                       chain_type_kwargs={"prompt": friendly_prompt}
                                        )
 
 
