@@ -9,4 +9,3 @@ I used a Gradio web interface where users input questions and receive relevant p
 
 ### Technical Requirements:
 Requires Python with LangChain, OpenAI, FAISS, and Gradio packages. Needs an OpenAI API key and runs locally on port 7860.
-<img width="468" height="435" alt="image" src="https://github.com/user-attachments/assets/8de0579c-5a45-4ff1-844e-4372222d7f69" />
